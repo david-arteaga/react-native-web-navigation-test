@@ -27,11 +27,6 @@ const appIncludes = [
 
 module.exports = (config, env) => {
   const ret = override(
-    // config => {
-    //   config.module.rules[1] = null;
-    //   config.module.rules = config.module.rules.filter(Boolean);
-    //   return config;
-    // },
     addWebpackPlugin(
       new webpack.DefinePlugin({
         __DEV__: process.env.NODE_ENV !== 'production',
@@ -43,6 +38,11 @@ module.exports = (config, env) => {
     ),
     babelInclude([...appIncludes]),
   )(config, env);
+
+  fs.writeFileSync('./webpack-config', JSON.stringify(config, null, 2))
+
+  // This line disables minification
+  ret.optimization.minimize = false;
 
   return ret;
 };
