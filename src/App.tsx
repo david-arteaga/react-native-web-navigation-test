@@ -1,6 +1,5 @@
 import { Platform } from 'react-native';
-import { createStackNavigator } from 'react-navigation';
-import { createAppContainer } from 'react-navigation';
+import { createAppContainer, createStackNavigator } from 'react-navigation';
 import { createBrowserApp } from '@react-navigation/web';
 import { Screen1, Screen2, Screen3, Screen4 } from './Screens';
 

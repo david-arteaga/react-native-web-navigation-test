@@ -39,7 +39,8 @@ module.exports = (config, env) => {
     babelInclude([...appIncludes]),
   )(config, env);
 
-  fs.writeFileSync('./webpack-config', JSON.stringify(config, null, 2))
+  // write webpack config for inspection
+  fs.writeFileSync('./webpack-config-for-inspection', JSON.stringify(config, null, 2))
 
   // This line disables minification
   ret.optimization.minimize = false;
