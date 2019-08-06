@@ -3,7 +3,6 @@ const {
   override,
   addWebpackPlugin,
   addBabelPlugins,
-  addWebpackAlias,
 } = require('customize-cra');
 const webpack = require('webpack');
 const fs = require('fs');
