@@ -3,6 +3,7 @@ const {
   override,
   addWebpackPlugin,
   addBabelPlugins,
+  addBabelPresets,
 } = require('customize-cra');
 const webpack = require('webpack');
 const fs = require('fs');
@@ -26,14 +27,16 @@ const appIncludes = [
 
 module.exports = (config, env) => {
   const ret = override(
+    addBabelPresets(
+      'module:metro-react-native-babel-preset'
+    ),
     addWebpackPlugin(
       new webpack.DefinePlugin({
         __DEV__: process.env.NODE_ENV !== 'production',
       }),
     ),
     addBabelPlugins(
-      'babel-plugin-react-native-web',
-      '@babel/plugin-transform-modules-commonjs',
+      'react-native-web',
     ),
     babelInclude([...appIncludes]),
   )(config, env);

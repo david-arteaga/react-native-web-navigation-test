@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Button, Text } from 'react-native';
+
 export function Screen1({ navigation }) {
   return (<View style={{
     flex: 1,
@@ -11,6 +12,7 @@ export function Screen1({ navigation }) {
     <Buttons navigation={navigation} />
   </View>);
 }
+
 export function Screen2({ navigation }) {
   return (<View style={{
     flex: 1,
@@ -22,6 +24,7 @@ export function Screen2({ navigation }) {
     <Buttons navigation={navigation} />
   </View>);
 }
+
 export function Screen3({ navigation }) {
   return (<View style={{
     flex: 1,
@@ -33,6 +36,7 @@ export function Screen3({ navigation }) {
     <Buttons navigation={navigation} />
   </View>);
 }
+
 export function Screen4({ navigation }) {
   return (<View style={{
     flex: 1,
@@ -44,6 +48,7 @@ export function Screen4({ navigation }) {
     <Buttons navigation={navigation} />
   </View>);
 }
+
 function Buttons({ navigation }) {
   return (<View style={{ flex: 1, justifyContent: 'space-evenly' }}>
     <Button title="Screen1" onPress={() => navigation.navigate('Screen1')} />
