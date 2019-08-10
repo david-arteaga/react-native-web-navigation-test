@@ -24,24 +24,23 @@ This causes the error further down in the function.
 ```js
 (function(module, exports, __webpack_require__) {
 
-    "use strict";
     var _interopRequireDefault = __webpack_require__(3);
     Object.defineProperty(exports, "__esModule", {
         value: true
     });
     exports.default = void 0;
-    var _extends2 = _interopRequireDefault(__webpack_require__(22));
-    var _classCallCheck2 = _interopRequireDefault(__webpack_require__(16));
-    var _createClass2 = _interopRequireDefault(__webpack_require__(17));
-    var _possibleConstructorReturn2 = _interopRequireDefault(__webpack_require__(18));
+    var _extends2 = _interopRequireDefault(__webpack_require__(23));
+    var _classCallCheck2 = _interopRequireDefault(__webpack_require__(17));
+    var _createClass2 = _interopRequireDefault(__webpack_require__(18));
+    var _possibleConstructorReturn2 = _interopRequireDefault(__webpack_require__(19));
 
     // This is the original declaration of the variable
     // This declaration has a correct value that works without errors
-    var _getPrototypeOf2 = _interopRequireDefault(__webpack_require__(19));
+    var _getPrototypeOf2 = _interopRequireDefault(__webpack_require__(20));
 
-    var _inherits2 = _interopRequireDefault(__webpack_require__(20));
+    var _inherits2 = _interopRequireDefault(__webpack_require__(21));
     var _react = _interopRequireDefault(__webpack_require__(1));
-    var _invariant = _interopRequireDefault(__webpack_require__(45));
+    var _invariant = _interopRequireDefault(__webpack_require__(46));
     var _jsxFileName = "/Users/brentvatne/coding/react-navigation-core/src/navigators/createNavigator.js";
     function createNavigator(NavigatorView, router, navigationConfig) {
         var Navigator = function(_React$Component) {
@@ -50,6 +49,7 @@ This causes the error further down in the function.
             function Navigator() {
                 // This is the re-declaration of the variable
                 // If you remove this line in the generated js bundle, the app runs without errors
+                // If you assign the value of the original _getPrototypeOf2 declaration the app also works (if you do this you have to rename the variable from the first declaration)
                 var _getPrototypeOf2;
                 var _this;
                 (0,
@@ -68,67 +68,14 @@ This causes the error further down in the function.
                 };
                 return _this;
             }
-            (0,
-            _createClass2.default)(Navigator, [{
-                key: "render",
-                value: function render() {
-                    return _react.default.createElement(NavigatorView, (0,
-                    _extends2.default)({}, this.props, {
-                        screenProps: this.state.screenProps,
-                        navigation: this.props.navigation,
-                        navigationConfig: navigationConfig,
-                        descriptors: this.state.descriptors,
-                        __source: {
-                            fileName: _jsxFileName,
-                            lineNumber: 61
-                        }
-                    }));
-                }
-            }], [{
-                key: "getDerivedStateFromProps",
-                value: function getDerivedStateFromProps(nextProps, prevState) {
-                    var prevDescriptors = prevState.descriptors;
-                    var navigation = nextProps.navigation
-                      , screenProps = nextProps.screenProps;
-                    (0,
-                    _invariant.default)(navigation != null, 'The navigation prop is missing for this navigator. In react-navigation 3 you must set up your app container directly. More info: https://reactnavigation.org/docs/en/app-containers.html');
-                    var state = navigation.state;
-                    var routes = state.routes;
-                    if (typeof routes === 'undefined') {
-                        throw new TypeError('No "routes" found in navigation state. Did you try to pass the navigation prop of a React component to a Navigator child? See https://reactnavigation.org/docs/en/custom-navigators.html#navigator-navigation-prop');
-                    }
-                    var descriptors = {};
-                    routes.forEach(function(route) {
-                        if (prevDescriptors && prevDescriptors[route.key] && route === prevDescriptors[route.key].state && screenProps === prevState.screenProps) {
-                            descriptors[route.key] = prevDescriptors[route.key];
-                            return;
-                        }
-                        var getComponent = router.getComponentForRouteName.bind(null, route.routeName);
-                        var childNavigation = navigation.getChildNavigation(route.key);
-                        var options = router.getScreenOptions(childNavigation, screenProps);
-                        descriptors[route.key] = {
-                            key: route.key,
-                            getComponent: getComponent,
-                            options: options,
-                            state: route,
-                            navigation: childNavigation
-                        };
-                    });
-                    return {
-                        descriptors: descriptors,
-                        screenProps: screenProps
-                    };
-                }
-            }]);
-            return Navigator;
-        }(_react.default.Component);
-        Navigator.router = router;
-        Navigator.navigationOptions = navigationConfig.navigationOptions;
-        return Navigator;
-    }
-    var _default = createNavigator;
-    exports.default = _default;
-
-    /***/
-}
+// ...
 ```
+
+# Minified code
+
+When building the minified js bundle, a similar modification allows the app to work.
+The first declaration of `var _getPrototypeOf2 = _interopRequireDefault(__webpack_require__(20));` is minified to `l = (r(n(20)), r(n(21)))`. (Since the value is replaced afterwards the declaration is omitted but the require call is still executed).
+
+The second declaration of the variable (`var _getPrototypeOf2;`) is converted to `var e, t;`, where `e` is used as `_getPrototypeOf2`;
+
+If you modify `var e, t;` to `var e=any_var,t;` and `l = (r(n(20)), r(n(21)))` to `any_var = r(n(20)), l = r(n(21)),` the app works fine. What this does is basically give a value to the variable that was declared without a value.
