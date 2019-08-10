@@ -74,7 +74,7 @@ This causes the error further down in the function.
 # Minified code
 
 When building the minified js bundle, a similar modification allows the app to work.
-The first declaration of `var _getPrototypeOf2 = _interopRequireDefault(__webpack_require__(20));` is minified to `l = (r(n(20)), r(n(21)))`. (Since the value is replaced afterwards the declaration is omitted but the require call is still executed).
+The first declaration of `var _getPrototypeOf2 = _interopRequireDefault(__webpack_require__(20));` is minified to `l = (r(n(20)), r(n(21)))`. (Since the value of that require is never user, the declaration is omitted, but the call to require is still executed).
 
 The second declaration of the variable (`var _getPrototypeOf2;`) is converted to `var e, t;`, where `e` is used as `_getPrototypeOf2`;
 
