@@ -16,9 +16,9 @@ createNavigator.js:4 Uncaught TypeError: Cannot read property 'default' of undef
 
 
 # Un-minified code
-When I disable minification in the production build (line 45 of `config-overrides.js`), this is the code that gets generated, specifically for the `createNavigator.js` file.
+When I disable minification in the production build (`ret.optimization.minimize = false;` in `config-overrides.js`), this is the code that gets generated, specifically for the `createNavigator.js` file.
 
-There is a variable, `_getPrototypeOf2`, that gets declared first with a correct value, but then gets redeclared `var _getPrototypeOf2;` and is not assigned a new value. 
+There is a variable, `_getPrototypeOf2`, that gets declared first with a correct value, but then gets redeclared `var _getPrototypeOf2;` and is not assigned a new value.
 
 This causes the error further down in the function.
 ```js
