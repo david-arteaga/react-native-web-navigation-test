@@ -1,3 +1,6 @@
+# FIX
+https://github.com/react-navigation/react-navigation/issues/6179#issuecomment-556108971
+
 This project shows how react-native can work correctly in web.
 The only problem I have found is that I get this error when running the web production build:
 ```
